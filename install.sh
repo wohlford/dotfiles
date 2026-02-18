@@ -68,6 +68,11 @@ main() {
     link_file "$SCRIPT_DIR/.gnupg/$f" "$HOME/.gnupg/$f"
   done
 
+  # SSH
+  mkdir -p "$HOME/.ssh"
+  chmod 700 "$HOME/.ssh"
+  link_file "$SCRIPT_DIR/.ssh/config" "$HOME/.ssh/config"
+
   log_info "Done"
 }
 

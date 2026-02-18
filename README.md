@@ -14,6 +14,7 @@ Personal dotfiles for macOS with MacPorts.
 | `.gnupg/gpg.conf` | GnuPG — key preferences, crypto settings |
 | `.gnupg/gpg-agent.conf` | GPG agent — SSH support, pinentry |
 | `.gnupg/dirmngr.conf` | Keyserver configuration |
+| `.ssh/config` | SSH — crypto, multiplexing, GPG agent |
 
 ## Installation
 
