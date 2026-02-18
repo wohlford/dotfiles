@@ -1,0 +1,25 @@
+# Readline configuration (claude-code suggestion)
+
+# Case-insensitive tab completion
+set completion-ignore-case on
+
+# Treat hyphens and underscores as equivalent during completion
+set completion-map-case on
+
+# Show all matches if ambiguous on first tab
+set show-all-if-ambiguous on
+
+# Append a slash to completed directory names
+set mark-directories on
+
+# Show file type indicators in completion list
+set visible-stats on
+
+# Color completion matches by file type
+set colored-stats on
+
+# Don't ring bell on ambiguous completion
+set bell-style none
+
+# Prevent paste injection
+set enable-bracketed-paste on

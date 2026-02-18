@@ -6,6 +6,10 @@ Personal dotfiles for macOS with MacPorts.
 
 | File | Description |
 | :--- | :--- |
+| `.bash_profile` | Login shell — PATH, environment variables, GPG agent |
+| `.bashrc` | Interactive shell — history, prompt, completions |
+| `.bash_aliases` | Shell aliases — MacPorts, networking, dev tools |
+| `.inputrc` | Readline — tab completion, bracketed paste |
 | `.gitconfig` | Git — aliases, signing, LFS |
 | `.gnupg/gpg.conf` | GnuPG — key preferences, crypto settings |
 | `.gnupg/gpg-agent.conf` | GPG agent — SSH support, pinentry |
@@ -20,6 +24,7 @@ git clone https://github.com/wohlford/dotfiles.git ~/dotfiles
 
 ## Dependencies
 
+- [MacPorts](https://www.macports.org)
 - [GPG Suite](https://gpgtools.org) (MacGPG2)
 
 ## License
