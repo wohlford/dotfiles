@@ -16,6 +16,7 @@ Personal dotfiles for macOS with MacPorts.
 | `.gnupg/dirmngr.conf` | Keyserver configuration |
 | `.ssh/config` | SSH — crypto, multiplexing, GPG agent |
 | `.tmux.conf.local` | tmux customization (uses gpakosz/.tmux) |
+| `.vimrc` | Vim configuration |
 
 ## Installation
 

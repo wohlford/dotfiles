@@ -18,6 +18,7 @@ readonly HOME_FILES=(
   .bash_aliases
   .inputrc
   .gitconfig
+  .vimrc
   .tmux.conf.local
 )
 
@@ -47,7 +48,6 @@ link_file() {
 
 # ---------- Main ----------
 main() {
-
   # Submodules
   git -C "$SCRIPT_DIR" submodule update --init --recursive
 
@@ -76,6 +76,10 @@ main() {
 
   # tmux
   link_file "$SCRIPT_DIR/.tmux" "$HOME/.tmux"
+
+  # Vim undo directory
+  mkdir -p "$HOME/.vim"
+  link_file "$SCRIPT_DIR/.vim/undo" "$HOME/.vim/undo"
 
   log_info "Done"
 }
