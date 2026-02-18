@@ -57,6 +57,13 @@ main() {
     link_file "$SCRIPT_DIR/$f" "$HOME/$f"
   done
 
+  # GnuPG
+  mkdir -p "$HOME/.gnupg"
+  chmod 700 "$HOME/.gnupg"
+  for f in gpg.conf gpg-agent.conf dirmngr.conf; do
+    link_file "$SCRIPT_DIR/.gnupg/$f" "$HOME/.gnupg/$f"
+  done
+
   log_info "Done"
 }
 

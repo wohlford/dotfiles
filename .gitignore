@@ -8,3 +8,18 @@
 *~
 *.swp
 *.swo
+
+# GnuPG runtime
+pubring.gpg
+pubring.gpg~
+secring.gpg
+trustdb.gpg
+tofu.db
+random_seed
+S.gpg-agent*
+S.scdaemon
+*.status
+.gpg-v21-migrated
+crls.d/
+private-keys-v1.d/
+openpgp-revocs.d/
