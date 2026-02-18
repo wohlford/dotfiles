@@ -18,6 +18,7 @@ readonly HOME_FILES=(
   .bash_aliases
   .inputrc
   .gitconfig
+  .tmux.conf.local
 )
 
 # ---------- Helper Functions ----------
@@ -72,6 +73,9 @@ main() {
   mkdir -p "$HOME/.ssh"
   chmod 700 "$HOME/.ssh"
   link_file "$SCRIPT_DIR/.ssh/config" "$HOME/.ssh/config"
+
+  # tmux
+  link_file "$SCRIPT_DIR/.tmux" "$HOME/.tmux"
 
   log_info "Done"
 }
