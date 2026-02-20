@@ -3,6 +3,14 @@
 	email = jason@wohlford.org
 	signingkey = 0x05A1685D6046396F
 
+[commit]
+	# Sign all commits with GPG key
+	gpgsign = true
+
+[tag]
+	# Sign all tags with GPG key
+	gpgsign = true
+
 [init]
 	# Set 'main' as the default branch for new repositories
 	defaultBranch = main
