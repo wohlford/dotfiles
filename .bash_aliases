@@ -34,9 +34,9 @@ alias keychange='gpg-connect-agent "scd serialno" "learn --force" /bye && gpg --
 
 # MacPorts
 alias port-update='sudo port selfupdate && port outdated'
-alias port-upgrade='sudo port upgrade -Rsup outdated'
+alias port-upgrade='yes | sudo port upgrade -Rsup outdated'
 alias port-install='sudo port install -Rsu'
-alias port-rebuild='sudo port upgrade -sunp --force installed'
+alias port-rebuild='yes | sudo port upgrade -sunp --force installed'
 alias port-clean='sudo port -f clean --all all && sudo port -f uninstall inactive'
 
 # Development tools
