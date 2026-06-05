@@ -75,3 +75,7 @@
 [color]
 	# Enable colored output in the command line interface
 	ui = true
+
+[include]
+	# Machine-local / private overrides (gitignored, never committed)
+	path = ~/.gitconfig.local
