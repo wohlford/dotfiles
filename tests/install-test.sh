@@ -27,10 +27,12 @@ assert() {
 }
 
 # Build a minimal fixture repo: install.sh plus every file it links.
-# .tmux is populated so the healthy-submodule path is exercised.
+# .claude is left EMPTY (mimics an uninitialized submodule); .tmux is
+# populated so the healthy-submodule path is also exercised.
 make_fixture() {
   local fx="$1"
-  mkdir -p "$fx/.gnupg" "$fx/.ssh/config.d" "$fx/.tmux" "$fx/.vim/undo"
+  mkdir -p "$fx/.gnupg" "$fx/.ssh/config.d" "$fx/.tmux" "$fx/.claude" \
+    "$fx/.vim/undo"
   cp "$REPO_DIR/install.sh" "$fx/install.sh"
   chmod +x "$fx/install.sh"
   local f
@@ -108,6 +110,19 @@ test_relink_reports_old_target() {
     grep -q 'elsewhere-dir' <<< "$out"
 }
 
+test_empty_submodule_never_linked_over_live_symlink() {
+  printf 'submodule guard: empty .claude never replaces a live symlink\n'
+  local fx="$WORK_DIR/t4/repo" home="$WORK_DIR/t4/home" stub="$WORK_DIR/t4/bin"
+  make_fixture "$fx"
+  make_git_stub "$stub" ok
+  mkdir -p "$home/live-claude"
+  printf 'live settings\n' > "$home/live-claude/settings.json"
+  ln -s "$home/live-claude" "$home/.claude"
+  run_install "$fx" "$home" "$stub" > /dev/null
+  assert 'HOME/.claude still points at the live directory' \
+    test "$(readlink "$home/.claude")" = "$home/live-claude"
+}
+
 test_submodule_failure_is_not_fatal() {
   printf 'resilience: git submodule failure still deploys core files\n'
   local fx="$WORK_DIR/t5/repo" home="$WORK_DIR/t5/home" stub="$WORK_DIR/t5/bin"
@@ -178,6 +193,7 @@ main() {
   test_happy_path_links_core_files
   test_backup_never_clobbered
   test_relink_reports_old_target
+  test_empty_submodule_never_linked_over_live_symlink
   test_submodule_failure_is_not_fatal
   test_ssh_masters_dir_created
   test_tmux_conf_linked

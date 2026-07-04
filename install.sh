@@ -72,6 +72,9 @@ main() {
     log_error "Submodule init failed; continuing — submodule links may be skipped"
   fi
 
+  # Claude Code
+  link_submodule "$SCRIPT_DIR/.claude" "$HOME/.claude"
+
   # Home directory files
   for f in "${HOME_FILES[@]}"; do
     link_file "$SCRIPT_DIR/$f" "$HOME/$f"

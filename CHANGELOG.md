@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.8.0 — 2026-07-04
+- feat(claude): Claude Code configuration via dotclaude submodule
+
 ## v0.7.0 — 2026-07-04
 - feat(tmux): gpakosz tmux via submodule with local overrides
 
