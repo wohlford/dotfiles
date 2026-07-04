@@ -14,6 +14,7 @@ readonly SCRIPT_DIR
 # Files symlinked directly into ~
 readonly HOME_FILES=(
   .inputrc
+  .vimrc
 )
 
 # ---------- Helper Functions ----------
@@ -52,6 +53,10 @@ main() {
   for f in "${HOME_FILES[@]}"; do
     link_file "$SCRIPT_DIR/$f" "$HOME/$f"
   done
+
+  # Vim undo directory
+  mkdir -p "$HOME/.vim"
+  link_file "$SCRIPT_DIR/.vim/undo" "$HOME/.vim/undo"
 
   log_info "Done"
 }

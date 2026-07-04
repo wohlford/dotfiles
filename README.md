@@ -7,6 +7,7 @@ Personal dotfiles for macOS with MacPorts.
 | File | Description |
 | :--- | :--- |
 | `.inputrc` | Readline — tab completion, bracketed paste |
+| `.vimrc` | Vim configuration |
 
 ## Installation
 
