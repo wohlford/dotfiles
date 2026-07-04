@@ -18,6 +18,11 @@ id_ed25519
 .gitconfig.local
 .bash_aliases.local
 
+# Machine-local SSH host configs — private hosts must never land in this
+# public repo; only the tracked hosts.conf template is allowed
+.ssh/config.d/*.conf
+!.ssh/config.d/hosts.conf
+
 # Vim persistent-undo data — the live undo dir is symlinked into this tree
 # by install.sh, and undo files can contain anything ever typed in a buffer
 .vim/undo/*

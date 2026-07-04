@@ -71,6 +71,16 @@ main() {
     log_error "pinentry not found at $pinentry — gpg passphrase prompts will fail"
   fi
 
+  # SSH
+  mkdir -p "$HOME/.ssh"
+  chmod 700 "$HOME/.ssh"
+  link_file "$SCRIPT_DIR/.ssh/config" "$HOME/.ssh/config"
+  # Machine-local host configs live here (gitignored); config includes config.d/*.conf
+  mkdir -p "$HOME/.ssh/config.d"
+  # ControlMaster socket dir — config sets ControlPath ~/.ssh/masters/%r@%h:%p
+  mkdir -p "$HOME/.ssh/masters"
+  chmod 700 "$HOME/.ssh/masters"
+
   # Vim undo directory
   mkdir -p "$HOME/.vim"
   link_file "$SCRIPT_DIR/.vim/undo" "$HOME/.vim/undo"

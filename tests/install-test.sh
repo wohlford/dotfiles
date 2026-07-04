@@ -29,7 +29,7 @@ assert() {
 # Build a minimal fixture repo: install.sh plus every file it links.
 make_fixture() {
   local fx="$1"
-  mkdir -p "$fx/.gnupg" "$fx/.vim/undo"
+  mkdir -p "$fx/.gnupg" "$fx/.ssh/config.d" "$fx/.vim/undo"
   cp "$REPO_DIR/install.sh" "$fx/install.sh"
   chmod +x "$fx/install.sh"
   local f
@@ -39,6 +39,7 @@ make_fixture() {
   for f in gpg.conf gpg-agent.conf dirmngr.conf; do
     printf '# fixture %s\n' "$f" > "$fx/.gnupg/$f"
   done
+  printf '# fixture ssh config\n' > "$fx/.ssh/config"
   touch "$fx/.vim/undo/.gitkeep"
 }
 
@@ -102,6 +103,14 @@ test_idempotent_rerun() {
   assert 'no files appear or vanish on re-run' test "$before" = "$after"
 }
 
+test_ssh_masters_dir_created() {
+  printf 'ssh: ControlPath directory ~/.ssh/masters exists after install\n'
+  local fx="$WORK_DIR/t6/repo" home="$WORK_DIR/t6/home"
+  make_fixture "$fx"
+  run_install "$fx" "$home" > /dev/null
+  assert 'HOME/.ssh/masters is a directory' test -d "$home/.ssh/masters"
+}
+
 test_missing_pinentry_warns() {
   printf 'gpg: a nonexistent configured pinentry produces a warning\n'
   local fx="$WORK_DIR/t9/repo" home="$WORK_DIR/t9/home"
@@ -116,14 +125,19 @@ test_missing_pinentry_warns() {
 
 test_gitignore_guards_leak_paths() {
   printf 'gitignore: leak-prone paths in the real repo are ignored\n'
-  assert 'git ignores .vim/undo/%Users%jason%file' \
-    git -C "$REPO_DIR" check-ignore -q '.vim/undo/%Users%jason%file'
+  local p
+  for p in '.ssh/config.d/stray-host.conf' '.vim/undo/%Users%jason%file'; do
+    assert "git ignores $p" git -C "$REPO_DIR" check-ignore -q "$p"
+  done
+  assert 'tracked hosts.conf stays tracked (not newly ignored)' \
+    test -n "$(git -C "$REPO_DIR" ls-files .ssh/config.d/hosts.conf)"
 }
 
 main() {
   test_happy_path_links_core_files
   test_backup_never_clobbered
   test_relink_reports_old_target
+  test_ssh_masters_dir_created
   test_idempotent_rerun
   test_missing_pinentry_warns
   test_gitignore_guards_leak_paths

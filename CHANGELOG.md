@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.6.0 — 2026-07-04
+- feat(ssh): client config with modern crypto and multiplexing
+
 ## v0.5.0 — 2026-07-04
 - feat(gnupg): gpg, agent with SSH support, and dirmngr configs
 
