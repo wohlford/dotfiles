@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.9.2 — 2026-07-04
+- fix(.gitignore): ignore GnuPG runtime files
+
 ## v0.9.1 — 2026-07-04
 - docs(CLAUDE.md,GEMINI.md): add ai assistant guidance for this repo
 
