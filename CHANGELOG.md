@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.5.0 — 2026-07-04
+- feat(gnupg): gpg, agent with SSH support, and dirmngr configs
+
 ## v0.4.0 — 2026-07-04
 - feat(git): gitconfig with signing, LFS, and machine-local include
 

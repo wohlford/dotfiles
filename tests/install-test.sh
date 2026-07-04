@@ -29,12 +29,15 @@ assert() {
 # Build a minimal fixture repo: install.sh plus every file it links.
 make_fixture() {
   local fx="$1"
-  mkdir -p "$fx/.vim/undo"
+  mkdir -p "$fx/.gnupg" "$fx/.vim/undo"
   cp "$REPO_DIR/install.sh" "$fx/install.sh"
   chmod +x "$fx/install.sh"
   local f
   for f in .bash_profile .bashrc .bash_aliases .inputrc .gitconfig .vimrc; do
     printf '# fixture %s\n' "$f" > "$fx/$f"
+  done
+  for f in gpg.conf gpg-agent.conf dirmngr.conf; do
+    printf '# fixture %s\n' "$f" > "$fx/.gnupg/$f"
   done
   touch "$fx/.vim/undo/.gitkeep"
 }
@@ -99,6 +102,18 @@ test_idempotent_rerun() {
   assert 'no files appear or vanish on re-run' test "$before" = "$after"
 }
 
+test_missing_pinentry_warns() {
+  printf 'gpg: a nonexistent configured pinentry produces a warning\n'
+  local fx="$WORK_DIR/t9/repo" home="$WORK_DIR/t9/home"
+  make_fixture "$fx"
+  printf 'pinentry-program /nonexistent/pinentry-mac\n' > "$fx/.gnupg/gpg-agent.conf"
+  local out
+  out="$(run_install "$fx" "$home")"
+  assert 'install exits 0 (warning is non-fatal)' test "$?" -eq 0
+  assert 'output warns about the missing pinentry' \
+    grep -qi 'pinentry not found' <<< "$out"
+}
+
 test_gitignore_guards_leak_paths() {
   printf 'gitignore: leak-prone paths in the real repo are ignored\n'
   assert 'git ignores .vim/undo/%Users%jason%file' \
@@ -110,6 +125,7 @@ main() {
   test_backup_never_clobbered
   test_relink_reports_old_target
   test_idempotent_rerun
+  test_missing_pinentry_warns
   test_gitignore_guards_leak_paths
 
   printf '\n%d passed, %d failed\n' "$pass_count" "$fail_count"

@@ -58,6 +58,19 @@ main() {
     link_file "$SCRIPT_DIR/$f" "$HOME/$f"
   done
 
+  # GnuPG
+  mkdir -p "$HOME/.gnupg"
+  chmod 700 "$HOME/.gnupg"
+  for f in gpg.conf gpg-agent.conf dirmngr.conf; do
+    link_file "$SCRIPT_DIR/.gnupg/$f" "$HOME/.gnupg/$f"
+  done
+  # gpg-agent.conf pins an absolute pinentry path; warn if this box lacks it
+  local pinentry
+  pinentry="$(awk '/^pinentry-program /{print $2}' "$SCRIPT_DIR/.gnupg/gpg-agent.conf")"
+  if [[ -n "$pinentry" && ! -x "$pinentry" ]]; then
+    log_error "pinentry not found at $pinentry — gpg passphrase prompts will fail"
+  fi
+
   # Vim undo directory
   mkdir -p "$HOME/.vim"
   link_file "$SCRIPT_DIR/.vim/undo" "$HOME/.vim/undo"
