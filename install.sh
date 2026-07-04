@@ -13,6 +13,9 @@ readonly SCRIPT_DIR
 
 # Files symlinked directly into ~
 readonly HOME_FILES=(
+  .bash_profile
+  .bashrc
+  .bash_aliases
   .inputrc
   .vimrc
 )

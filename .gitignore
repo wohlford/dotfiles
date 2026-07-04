@@ -9,6 +9,14 @@
 *.swp
 *.swo
 
+# Secrets — never commit these
+.env
+*.pem
+*.key
+id_rsa
+id_ed25519
+.bash_aliases.local
+
 # Vim persistent-undo data — the live undo dir is symlinked into this tree
 # by install.sh, and undo files can contain anything ever typed in a buffer
 .vim/undo/*

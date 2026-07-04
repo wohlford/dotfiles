@@ -33,7 +33,7 @@ make_fixture() {
   cp "$REPO_DIR/install.sh" "$fx/install.sh"
   chmod +x "$fx/install.sh"
   local f
-  for f in .inputrc .vimrc; do
+  for f in .bash_profile .bashrc .bash_aliases .inputrc .vimrc; do
     printf '# fixture %s\n' "$f" > "$fx/$f"
   done
   touch "$fx/.vim/undo/.gitkeep"
@@ -53,7 +53,7 @@ test_happy_path_links_core_files() {
   run_install "$fx" "$home" > /dev/null
   assert 'exit status 0' test "$?" -eq 0
   local f
-  for f in .inputrc .vimrc; do
+  for f in .bash_profile .bashrc .vimrc; do
     assert "$f is a symlink into the fixture" test "$(readlink "$home/$f")" = "$fx/$f"
   done
 }
@@ -63,11 +63,11 @@ test_backup_never_clobbered() {
   local fx="$WORK_DIR/t2/repo" home="$WORK_DIR/t2/home"
   make_fixture "$fx"
   mkdir -p "$home"
-  printf 'ORIGINAL A\n' > "$home/.inputrc"
+  printf 'ORIGINAL A\n' > "$home/.bashrc"
   run_install "$fx" "$home" > /dev/null
   # an editor safe-save breaks the symlink, leaving a new real file
-  rm "$home/.inputrc"
-  printf 'NEWER B\n' > "$home/.inputrc"
+  rm "$home/.bashrc"
+  printf 'NEWER B\n' > "$home/.bashrc"
   run_install "$fx" "$home" > /dev/null
   assert 'original backup content still exists somewhere' \
     grep -rq 'ORIGINAL A' "$home"

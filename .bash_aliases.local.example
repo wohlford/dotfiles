@@ -1,0 +1,7 @@
+# Copy to ~/.bash_aliases.local and add machine-local or private aliases.
+# ~/.bash_aliases sources it last, so definitions here override the tracked ones.
+# Never commit ~/.bash_aliases.local (gitignored).
+#
+# Example — sync a private host over ssh:
+# alias project-pull='rsync -avz --delete host:src/path/ ~/local/path/'
+# alias project-push='rsync -avz --delete ~/local/path/ host:src/path/'

@@ -6,6 +6,9 @@ Personal dotfiles for macOS with MacPorts.
 
 | File | Description |
 | :--- | :--- |
+| `.bash_profile` | Login shell — PATH, environment variables, GPG agent |
+| `.bashrc` | Interactive shell — history, prompt, completions |
+| `.bash_aliases` | Shell aliases — MacPorts, networking, dev tools |
 | `.inputrc` | Readline — tab completion, bracketed paste |
 | `.vimrc` | Vim configuration |
 
