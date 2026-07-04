@@ -33,7 +33,7 @@ make_fixture() {
   cp "$REPO_DIR/install.sh" "$fx/install.sh"
   chmod +x "$fx/install.sh"
   local f
-  for f in .bash_profile .bashrc .bash_aliases .inputrc .vimrc; do
+  for f in .bash_profile .bashrc .bash_aliases .inputrc .gitconfig .vimrc; do
     printf '# fixture %s\n' "$f" > "$fx/$f"
   done
   touch "$fx/.vim/undo/.gitkeep"

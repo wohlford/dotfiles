@@ -17,6 +17,7 @@ readonly HOME_FILES=(
   .bashrc
   .bash_aliases
   .inputrc
+  .gitconfig
   .vimrc
 )
 

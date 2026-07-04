@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.4.0 — 2026-07-04
+- feat(git): gitconfig with signing, LFS, and machine-local include
+
 ## v0.3.0 — 2026-07-04
 - feat(bash): login and interactive shell environment
 
