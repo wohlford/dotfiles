@@ -19,6 +19,7 @@ readonly HOME_FILES=(
   .inputrc
   .gitconfig
   .vimrc
+  .tmux.conf.local
 )
 
 # ---------- Helper Functions ----------
@@ -51,8 +52,26 @@ link_file() {
   log_info "Linked $dest → $src"
 }
 
+# Submodule-backed sources may be empty (uninitialized submodule); linking one
+# would swap a live symlink for an empty directory, so skip instead.
+link_submodule() {
+  local src="$1"
+  local dest="$2"
+
+  if [[ ! -d "$src" ]] || [[ -z "$(ls -A "$src")" ]]; then
+    log_error "Skipping $dest: $src is empty — run: git submodule update --init"
+    return 0
+  fi
+  link_file "$src" "$dest"
+}
+
 # ---------- Main ----------
 main() {
+  # Submodules — non-fatal: core dotfiles still deploy without network
+  if ! git -C "$SCRIPT_DIR" submodule update --init --recursive; then
+    log_error "Submodule init failed; continuing — submodule links may be skipped"
+  fi
+
   # Home directory files
   for f in "${HOME_FILES[@]}"; do
     link_file "$SCRIPT_DIR/$f" "$HOME/$f"
@@ -80,6 +99,14 @@ main() {
   # ControlMaster socket dir — config sets ControlPath ~/.ssh/masters/%r@%h:%p
   mkdir -p "$HOME/.ssh/masters"
   chmod 700 "$HOME/.ssh/masters"
+
+  # tmux — gpakosz/.tmux loads via ~/.tmux.conf → ~/.tmux/.tmux.conf
+  link_submodule "$SCRIPT_DIR/.tmux" "$HOME/.tmux"
+  if [[ -f "$HOME/.tmux/.tmux.conf" ]]; then
+    link_file "$HOME/.tmux/.tmux.conf" "$HOME/.tmux.conf"
+  else
+    log_error "Skipping $HOME/.tmux.conf: $HOME/.tmux/.tmux.conf not present"
+  fi
 
   # Vim undo directory
   mkdir -p "$HOME/.vim"

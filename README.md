@@ -15,12 +15,13 @@ Personal dotfiles for macOS with MacPorts.
 | `.gnupg/gpg-agent.conf` | GPG agent — SSH support, pinentry |
 | `.gnupg/dirmngr.conf` | Keyserver configuration |
 | `.ssh/config` | SSH — crypto, multiplexing, GPG agent |
+| `.tmux.conf.local` | tmux customization (uses gpakosz/.tmux) |
 | `.vimrc` | Vim configuration |
 
 ## Installation
 
 ```bash
-git clone https://github.com/wohlford/dotfiles.git ~/dotfiles
+git clone --recursive https://github.com/wohlford/dotfiles.git ~/dotfiles
 ~/dotfiles/install.sh
 ```
 
@@ -36,6 +37,7 @@ for the pattern.
 
 - [MacPorts](https://www.macports.org)
 - [GPG Suite](https://gpgtools.org) (MacGPG2)
+- [gpakosz/.tmux](https://github.com/gpakosz/.tmux) (included as submodule)
 
 ## License
 

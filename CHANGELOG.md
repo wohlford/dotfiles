@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.7.0 — 2026-07-04
+- feat(tmux): gpakosz tmux via submodule with local overrides
+
 ## v0.6.0 — 2026-07-04
 - feat(ssh): client config with modern crypto and multiplexing
 
