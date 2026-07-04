@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.9.1 — 2026-07-04
+- docs(CLAUDE.md,GEMINI.md): add ai assistant guidance for this repo
+
 ## v0.9.0 — 2026-07-04
 - feat(gemini): Gemini configuration via dotgemini submodule
 
