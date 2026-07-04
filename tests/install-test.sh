@@ -27,12 +27,12 @@ assert() {
 }
 
 # Build a minimal fixture repo: install.sh plus every file it links.
-# .claude is left EMPTY (mimics an uninitialized submodule); .tmux is
-# populated so the healthy-submodule path is also exercised.
+# .claude is left EMPTY (mimics an uninitialized submodule); .gemini and
+# .tmux are populated so the healthy-submodule path is also exercised.
 make_fixture() {
   local fx="$1"
   mkdir -p "$fx/.gnupg" "$fx/.ssh/config.d" "$fx/.tmux" "$fx/.claude" \
-    "$fx/.vim/undo"
+    "$fx/.gemini" "$fx/.vim/undo"
   cp "$REPO_DIR/install.sh" "$fx/install.sh"
   chmod +x "$fx/install.sh"
   local f
@@ -45,6 +45,7 @@ make_fixture() {
   done
   printf '# fixture ssh config\n' > "$fx/.ssh/config"
   printf '# fixture gpakosz conf\n' > "$fx/.tmux/.tmux.conf"
+  printf '# fixture gemini marker\n' > "$fx/.gemini/marker"
   touch "$fx/.vim/undo/.gitkeep"
 }
 
@@ -78,6 +79,8 @@ test_happy_path_links_core_files() {
   for f in .bash_profile .bashrc .vimrc; do
     assert "$f is a symlink into the fixture" test "$(readlink "$home/$f")" = "$fx/$f"
   done
+  assert 'populated submodule (.gemini) is linked' \
+    test "$(readlink "$home/.gemini")" = "$fx/.gemini"
 }
 
 test_backup_never_clobbered() {

@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.9.0 — 2026-07-04
+- feat(gemini): Gemini configuration via dotgemini submodule
+
 ## v0.8.0 — 2026-07-04
 - feat(claude): Claude Code configuration via dotclaude submodule
 

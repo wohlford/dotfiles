@@ -1,6 +1,9 @@
 [submodule ".claude"]
 	path = .claude
 	url = https://github.com/wohlford/dotclaude.git
+[submodule ".gemini"]
+	path = .gemini
+	url = https://github.com/wohlford/dotgemini.git
 [submodule ".tmux"]
 	path = .tmux
 	url = https://github.com/gpakosz/.tmux.git

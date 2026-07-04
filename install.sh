@@ -75,6 +75,9 @@ main() {
   # Claude Code
   link_submodule "$SCRIPT_DIR/.claude" "$HOME/.claude"
 
+  # Gemini
+  link_submodule "$SCRIPT_DIR/.gemini" "$HOME/.gemini"
+
   # Home directory files
   for f in "${HOME_FILES[@]}"; do
     link_file "$SCRIPT_DIR/$f" "$HOME/$f"
